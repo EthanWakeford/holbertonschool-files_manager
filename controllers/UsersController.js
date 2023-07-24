@@ -28,8 +28,9 @@ class UsersController {
     };
 
     const userCreated = await dbClient.client.db().collection('users').insertOne(newUser);
+    const createdUserInDb = await dbClient.client.db().collection('users').findOne({ _id: userCreated.insertedId });
 
-    res.status(201).json({ id: userCreated.insertedId.toString(), email });
+    res.status(201).json({ id: createdUserInDb._id.toString(), email: createdUserInDb.email });
   }
 }
 
