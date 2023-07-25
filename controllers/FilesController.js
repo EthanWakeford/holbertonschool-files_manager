@@ -17,7 +17,7 @@ class FilesController {
     if (!name) return res.status(400).json({ error: 'Missing name' });
     if (!['folder', 'file', 'image'].includes(type)) return res.status(400).json({ error: 'Missing type' });
     if (!data && type !== 'folder') return res.status(400).json({ error: 'Missing data' });
-    if (parentId) {
+    if (parentId !== 0) {
       const file = dbClient.db.collection('files').findOne({ parentId });
 
       if (!file) return res.status(400).json({ error: 'Parent not found' });
